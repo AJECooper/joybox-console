@@ -26,7 +26,7 @@ You don’t need to be an expert. If you care, you qualify.
 # 🛠️ Getting Started (Development Setup)
 
 ```sh
-git clone https://github.com/<your-username>/joybox-console.git
+git clone https://github.com/AJECooper/joybox-console.git
 cd joybox-console
 python -m pip install -r requirements.txt
 python src/joybox/main.py
