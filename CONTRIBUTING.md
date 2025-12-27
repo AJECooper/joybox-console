@@ -19,7 +19,8 @@ If you want to help, you're welcome here. 💛
 | Educators / Parents | Suggest learning mechanics and accessibility ideas     |
 | Anyone              | Ideas, feedback, encouragement, documentation          |
 
-You don’t need to be an expert. If you care, you qualify.
+You don’t need to be an expert.
+If you care, you qualify.
 
 ---
 
@@ -73,6 +74,109 @@ If you're unsure how to start, open an Issue and we’ll pair you with guidance.
 
 ---
 
+# 🌿 Branch Naming Convention (Please Follow)
+
+To keep JoyBox friendly, consistent, and easy to review, we use a **simple branch naming standard**.
+
+### General format
+
+```
+<type>/<short-description>
+```
+
+Use **lowercase** and **kebab-case** (`-`).
+
+---
+
+### Branch types
+
+#### ✨ Features
+
+```
+feature/<description>
+```
+
+Examples:
+
+```
+feature/scene-system
+feature/input-actions
+feature/pi-profile-detection
+```
+
+---
+
+#### 🎮 Game development
+
+```
+game/<game-id>/<description>
+```
+
+Examples:
+
+```
+game/lantern-labyrinth/skeleton
+game/lantern-labyrinth/fuel-system
+game/forest-friends/dialogue
+```
+
+This helps keep game work organised and easy to track.
+
+---
+
+#### 🐛 Fixes
+
+```
+fix/<description>
+```
+
+Examples:
+
+```
+fix/pi-lite-fps-cap
+fix/input-lag
+fix/maze-collision
+```
+
+Game-specific fixes:
+
+```
+fix/lantern-labyrinth/orb-spawn
+```
+
+---
+
+#### 📚 Documentation & community
+
+```
+docs/<description>
+community/<description>
+```
+
+Examples:
+
+```
+docs/game-guidelines
+docs/manifest-spec
+community/contributor-art-guide
+```
+
+---
+
+### 🚫 Please avoid
+
+* `mybranch`
+* `test123`
+* `wip`
+* `update`
+* `fix-stuff`
+
+Clear > clever. Friendly > formal.
+
+If you’re unsure what to name your branch, ask — we’ll help.
+
+---
+
 # 🧩 Coding Guidelines
 
 * Keep code readable, not clever.
@@ -97,28 +201,28 @@ Not all games will run on all devices. This is okay.
 | `pi_standard`    | Pi 3B+ (development baseline) | 2D RPGs and larger projects     |
 | `pi_performance` | Pi 4+                         | Bigger worlds / heavier effects |
 
-Add these in your PR so children don’t end up with games that run poorly on their device.
+Please mention supported profiles in your PR so children don’t end up with games that run poorly on their device.
 
 ---
 
 # 📝 Submitting Pull Requests
 
 1. Fork the repo
-2. Create a branch:
+2. Create a branch following the naming guide above, for example:
 
    ```sh
-   git checkout -b feature/my-feature-name
+   git checkout -b game/lantern-labyrinth/fuel-bar
    ```
 3. Commit changes clearly:
 
    ```sh
-   git commit -m "Add new mini-game: Forest Friends"
+   git commit -m "Add lantern fuel drain and refill orbs"
    ```
 4. Push and open a PR
-5. Add:
+5. In your PR description, include:
 
    * What you changed
-   * Any hardware profile requirements
+   * Supported hardware profiles (`pi_lite`, etc.)
    * Any known limitations
 
 We’re friendly — nobody will judge mistakes.
