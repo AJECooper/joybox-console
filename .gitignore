@@ -1,0 +1,62 @@
+# ------------------------------
+# Python cache / bytecode
+# ------------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ------------------------------
+# VSCode settings
+# ------------------------------
+.vscode/settings.json
+
+# ------------------------------
+# Virtual environments
+# ------------------------------
+venv/
+env/
+.venv/
+.env/
+
+# ------------------------------
+# Build / distribution artifacts
+# ------------------------------
+build/
+dist/
+*.egg-info/
+*.spec
+
+# ------------------------------
+# IDE / editor files
+# ------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ------------------------------
+# OS-specific junk
+# ------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ------------------------------
+# Logs & temp files
+# ------------------------------
+*.log
+*.tmp
+*.bak
+
+# ------------------------------
+# Release archives / installers
+# ------------------------------
+release/**/*temp*/
+release/**/*.zip
+release/**/*.tar.gz
+
+# ------------------------------
+# Tools / local scripts
+# ------------------------------
+tools/local_*

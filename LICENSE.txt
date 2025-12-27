@@ -1,0 +1,104 @@
+# JoyBox License
+
+**License:** Creative Commons Attribution-NonCommercial 4.0 International  
+**Short Identifier:** CC BY-NC 4.0  
+Full Legal Text: https://creativecommons.org/licenses/by-nc/4.0/legalcode
+
+---
+
+## 🍉 Summary of Your Rights
+You are allowed to:
+
+- Use JoyBox software, code, assets, and games **for free**
+- Modify, improve, and build on the project
+- Distribute your own versions **non-commercially**
+- Create learning materials, tutorials, or community content
+- Gift physical JoyBox consoles to others (charity, schools, families, etc.)
+
+As long as you:
+
+- Credit the project when sharing work based on it  
+  *(e.g. “Built using JoyBox - https://github.com/<your-username>/joybox-console”)*
+- Keep any distributed versions free and non-commercial
+- Keep this same license applied to JoyBox-derived work
+
+---
+
+## 🚫 Not Allowed (Non-Commercial Protection)
+
+You **may not**:
+
+- Sell JoyBox software, hardware, or derivative products
+- Use JoyBox in any paid or commercial product
+- Sell pre-built consoles using JoyBox software
+- Lock or DRM-protect any JoyBox-based work
+- Rebrand JoyBox as a commercial console/platform
+
+This includes selling:
+
+- The software by itself
+- Digital downloads or installers
+- Pre-built JoyBox devices
+- Paid game bundles
+- Paid access or subscriptions
+
+---
+
+## 🧩 Code vs. Content
+
+This license covers:
+
+- Code (Python, engine, launcher, tooling)
+- Game logic, data, and scripts
+- Dialogue & narrative text
+- Artwork, sprites, audio, and assets created for JoyBox
+
+If contributors add assets or games, they agree that contributions become part of the project **under this same license**.
+
+---
+
+## 💛 Why This License Exists
+
+JoyBox is a project built to help families, kids, and communities.
+
+It is not a commercial venture.
+
+This license exists to ensure that JoyBox:
+
+- Stays free to use, learn from, and share
+- Cannot be taken and sold for profit
+- Remains a gift, not a product
+- Protects vulnerable families from being charged for something made for them
+
+---
+
+## 📜 Full Legal Text
+
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).**
+
+You can read the full text here:  
+https://creativecommons.org/licenses/by-nc/4.0/legalcode
+
+---
+
+## 📝 Attribution Example
+
+If you fork, remix, or distribute:
+
+> Built with JoyBox – https://github.com/ajecooper/joybox-console  
+> Licensed under CC BY-NC 4.0 – Non-Commercial Use Only
+
+---
+
+## 👥 Contributors
+
+By submitting any code, assets, or content to this repository, contributors agree their work will be licensed as **CC BY-NC 4.0** and remain free from commercialisation.
+
+---
+
+## ❤️ Final Note
+
+JoyBox is a kindness project.
+It exists to make children smile.
+It should always be something that can be **given** — not something that must be **bought**.
+
