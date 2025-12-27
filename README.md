@@ -63,7 +63,7 @@ joybox-console/
 ## 🚀 Running the Project (Development)
 
 ```sh
-git clone https://github.com/<your-username>/joybox-console.git
+git clone https://github.com/AJECooper/joybox-console.git
 cd joybox-console
 python -m pip install -r requirements.txt
 python src/joybox/main.py
