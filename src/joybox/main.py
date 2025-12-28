@@ -3,6 +3,7 @@ import pygame
 from joybox.engine.game_app import GameApp
 from joybox.engine.scene import Scene
 from joybox.engine.input.actions import get_action_from_event, Action
+from joybox.games.lantern_labyrinth.game import create_game
 
 class BootScene(Scene):
     def __init__(self, app):
@@ -24,7 +25,8 @@ def main():
     pygame.init()
 
     app = GameApp(start_scene=None, window_size=(640, 480), caption="JoyBox - Day 1")
-    app.set_scene(BootScene(app))
+
+    app.set_scene(create_game(app))
 
     app.run(fps_cap=60)
     pygame.quit()
