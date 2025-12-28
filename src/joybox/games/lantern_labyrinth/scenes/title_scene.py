@@ -12,6 +12,11 @@ class TitleScene(Scene):
     def handle_event(self, event):
         action = get_action_from_event(event)
 
+        if action == Action.CONFIRM:
+            from joybox.games.lantern_labyrinth.scenes.game_scene import GameScene
+            
+            return GameScene(self.app)
+
         if action == Action.BACK:
             self.app.quit()
 
