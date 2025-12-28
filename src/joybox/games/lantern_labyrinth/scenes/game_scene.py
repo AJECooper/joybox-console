@@ -8,19 +8,21 @@ class GameScene(Scene):
 
     MAZE = [
         "####################",
-        "#..#...............#",
+        "#..#.....O.........#",
         "#..#..######..###..#",
-        "#......#..........##",
+        "#......#....O.....##",
         "###.####..####..#..#",
         "#.............#.#..#",
         "#..######.###.#.#..#",
-        "#...........#....E.#",
+        "#..O........#....E.#",
         "####################",
     ]
 
     def __init__(self, app):
         self.app = app
         self.font_hint = pygame.font.SysFont("Arial", 16)
+
+        self.grid = [list(row) for row in self.MAZE]
 
         self.px, self.py = 1, 1
 
@@ -32,14 +34,22 @@ class GameScene(Scene):
 
 
     def is_wall(self, x, y):
-        if y < 0 or y >= len(self.MAZE):
+        if y < 0 or y >= len(self.grid):
             return True
-        if x < 0 or x >= len(self.MAZE[0]):
+        if x < 0 or x >= len(self.grid[0]):
             return True
-        return self.MAZE[y][x] == "#"
+        
+        return self.grid[y][x] == "#"
     
     def is_exit(self, x, y):
-        return self.MAZE[y][x] == "E"
+        return self.grid[y][x] == "E"
+    
+    def is_orb(self, x, y):
+        return self.grid[y][x] == "O"
+
+    def collect_orb(self, x, y):
+        self.grid[y][x] = "."
+        self.fuel = min(100.0, self.fuel + 30.0)
 
     def try_move(self, dx, dy):
         nx = self.px + dx
@@ -69,6 +79,9 @@ class GameScene(Scene):
     def update(self, dt):
         self.fuel -= self.fuel_consumption_rate_per_second * dt
 
+        if self.is_orb(self.px, self.py):
+            self.collect_orb(self.px, self.py)
+
         if self.fuel <= 0:
             from joybox.games.lantern_labyrinth.scenes.game_over_scene import GameOverScene
 
@@ -84,7 +97,7 @@ class GameScene(Scene):
     def render(self, surface):
         surface.fill((0, 0, 0))
 
-        for y, row in enumerate(self.MAZE):
+        for y, row in enumerate(self.grid):
             for x, ch in enumerate(row):
                 rect = pygame.Rect(
                     self.offset_x + x * self.TILE_SIZE,
@@ -97,6 +110,8 @@ class GameScene(Scene):
                     pygame.draw.rect(surface, (40, 40, 40), rect)
                 elif ch == "E":
                     pygame.draw.rect(surface, (80, 200, 120), rect)
+                elif ch == "O":
+                    pygame.draw.rect(surface, (255, 240, 120), rect.inflate(-8, -8))
                 else:
                     pygame.draw.rect(surface, (12, 12, 12), rect)
 
