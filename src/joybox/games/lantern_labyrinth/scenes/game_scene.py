@@ -14,7 +14,7 @@ class GameScene(Scene):
         "###.####..####..#..#",
         "#.............#.#..#",
         "#..######.###.#.#..#",
-        "#...........#......#",
+        "#...........#....E.#",
         "####################",
     ]
 
@@ -33,6 +33,9 @@ class GameScene(Scene):
         if x < 0 or x >= len(self.MAZE[0]):
             return True
         return self.MAZE[y][x] == "#"
+    
+    def is_exit(self, x, y):
+        return self.MAZE[y][x] == "E"
 
     def try_move(self, dx, dy):
         nx = self.px + dx
@@ -60,6 +63,11 @@ class GameScene(Scene):
         return None
 
     def update(self, dt):
+        if self.is_exit(self.px, self.py):
+            from joybox.games.lantern_labyrinth.scenes.win_scene import WinScene
+
+            return WinScene(self.app)
+        
         return None
 
     def render(self, surface):
@@ -76,6 +84,8 @@ class GameScene(Scene):
 
                 if ch == "#":
                     pygame.draw.rect(surface, (40, 40, 40), rect)
+                elif ch == "E":
+                    pygame.draw.rect(surface, (80, 200, 120), rect)
                 else:
                     pygame.draw.rect(surface, (12, 12, 12), rect)
 
