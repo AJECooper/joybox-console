@@ -2,27 +2,23 @@ import pygame
 
 from joybox.engine.scene import Scene
 from joybox.engine.input.actions import get_action_from_event, Action
+from joybox.games.lantern_labyrinth.maze import generate_maze, place_exit, place_orbs
 
 class GameScene(Scene):
     TILE_SIZE = 16
+    WINDOW_W, WINDOW_H = 640, 480
+    HUD_HEIGHT = 60
 
-    MAZE = [
-        "####################",
-        "#..#.....O.........#",
-        "#..#..######..###..#",
-        "#......#....O.....##",
-        "###.####..####..#..#",
-        "#.............#.#..#",
-        "#..######.###.#.#..#",
-        "#..O........#....E.#",
-        "####################",
-    ]
-
-    def __init__(self, app):
+    def __init__(self, app, level=1):
         self.app = app
+        self.level = level
+
         self.font_hint = pygame.font.SysFont("Arial", 16)
 
-        self.grid = [list(row) for row in self.MAZE]
+        self.grid = generate_maze(21, 13, seed=None)
+        place_orbs(self.grid, count=3 + (self.level // 2))
+        self.exit_pos = place_exit(self.grid)
+
         self.dark_overlay = pygame.Surface((640, 480))
         self.dark_overlay.fill((0, 0, 0))
 
@@ -127,7 +123,8 @@ class GameScene(Scene):
 
         hint = self.font_hint.render("Arrows: Move   ESC: Back", True, (200, 200, 200))
 
-        bar_x, bar_y = 20, 220
+        bar_x = 20
+        bar_y = self.WINDOW_H - 30
         bar_w, bar_h = 200, 12
 
         pygame.draw.rect(surface, (200, 200, 200), (bar_x, bar_y, bar_w, bar_h), 1)
