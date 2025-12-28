@@ -1,7 +1,7 @@
 { 
     "id": "lantern_labyrinth",
     "title": "Lantern Labyrinth",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "author": "JoyBox Community",
     "description": "A tiny maze game: reach the exit before your lantern fuel runs out.",
     "entrypoint": "joybox.games.lantern_labyrinth.game:create_game",
