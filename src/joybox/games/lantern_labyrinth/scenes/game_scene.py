@@ -27,6 +27,10 @@ class GameScene(Scene):
         self.offset_x = 20
         self.offset_y = 20
 
+        self.fuel = 100.0
+        self.fuel_consumption_rate_per_second = 8.0
+
+
     def is_wall(self, x, y):
         if y < 0 or y >= len(self.MAZE):
             return True
@@ -63,6 +67,13 @@ class GameScene(Scene):
         return None
 
     def update(self, dt):
+        self.fuel -= self.fuel_consumption_rate_per_second * dt
+
+        if self.fuel <= 0:
+            from joybox.games.lantern_labyrinth.scenes.game_over_scene import GameOverScene
+
+            return GameOverScene(self.app)
+
         if self.is_exit(self.px, self.py):
             from joybox.games.lantern_labyrinth.scenes.win_scene import WinScene
 
@@ -98,4 +109,17 @@ class GameScene(Scene):
         pygame.draw.rect(surface, (255, 240, 120), player_rect)
 
         hint = self.font_hint.render("Arrows: Move   ESC: Back", True, (200, 200, 200))
+
+        bar_x, bar_y = 20, 220
+        bar_w, bar_h = 200, 12
+
+        pygame.draw.rect(surface, (200, 200, 200), (bar_x, bar_y, bar_w, bar_h), 1)
+
+        fuel_ratio = max(0.0, min(1.0, self.fuel / 100.0))
+        fill_w = int((bar_w - 2) * fuel_ratio)
+        pygame.draw.rect(surface, (255, 240, 120), (bar_x + 1, bar_y + 1, fill_w, bar_h - 2))
+
+        label = self.font_hint.render(f"Fuel: {int(self.fuel)}", True, (200, 200, 200))
+        surface.blit(label, (bar_x + bar_w + 10, bar_y - 2))
+
         surface.blit(hint, (20, 200))
