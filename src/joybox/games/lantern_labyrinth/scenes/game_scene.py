@@ -23,6 +23,8 @@ class GameScene(Scene):
         self.font_hint = pygame.font.SysFont("Arial", 16)
 
         self.grid = [list(row) for row in self.MAZE]
+        self.dark_overlay = pygame.Surface((640, 480))
+        self.dark_overlay.fill((0, 0, 0))
 
         self.px, self.py = 1, 1
 
@@ -136,5 +138,15 @@ class GameScene(Scene):
 
         label = self.font_hint.render(f"Fuel: {int(self.fuel)}", True, (200, 200, 200))
         surface.blit(label, (bar_x + bar_w + 10, bar_y - 2))
+
+        fuel_ratio = max(0.0, min(1.0, self.fuel / 100.0))
+
+        max_dark = 220
+        min_dark = 0
+        alpha = int(min_dark + (1.0 - fuel_ratio) * (max_dark - min_dark))
+
+        if alpha > 0:
+            self.dark_overlay.set_alpha(alpha)
+            surface.blit(self.dark_overlay, (0, 0))
 
         surface.blit(hint, (20, 200))
