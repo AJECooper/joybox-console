@@ -4,29 +4,88 @@ from joybox.engine.scene import Scene
 from joybox.engine.input.actions import get_action_from_event, Action
 
 class GameScene(Scene):
+    TILE_SIZE = 16
+
+    MAZE = [
+        "####################",
+        "#..#...............#",
+        "#..#..######..###..#",
+        "#......#..........##",
+        "###.####..####..#..#",
+        "#.............#.#..#",
+        "#..######.###.#.#..#",
+        "#...........#......#",
+        "####################",
+    ]
+
     def __init__(self, app):
         self.app = app
-        self.font_title = pygame.font.SysFont("Arial", 24)
         self.font_hint = pygame.font.SysFont("Arial", 16)
+
+        self.px, self.py = 1, 1
+
+        self.offset_x = 20
+        self.offset_y = 20
+
+    def is_wall(self, x, y):
+        if y < 0 or y >= len(self.MAZE):
+            return True
+        if x < 0 or x >= len(self.MAZE[0]):
+            return True
+        return self.MAZE[y][x] == "#"
+
+    def try_move(self, dx, dy):
+        nx = self.px + dx
+        ny = self.py + dy
+
+        if not self.is_wall(nx, ny):
+            self.px, self.py = nx, ny
 
     def handle_event(self, event):
         action = get_action_from_event(event)
 
         if action == Action.BACK:
             from joybox.games.lantern_labyrinth.scenes.title_scene import TitleScene
-
             return TitleScene(self.app)
-        
+
+        if action == Action.UP:
+            self.try_move(0, -1)
+        elif action == Action.DOWN:
+            self.try_move(0, 1)
+        elif action == Action.LEFT:
+            self.try_move(-1, 0)
+        elif action == Action.RIGHT:
+            self.try_move(1, 0)
+
         return None
-    
-    def update(self, delta_time):
+
+    def update(self, dt):
         return None
-    
+
     def render(self, surface):
-        surface.fill((10, 10, 10))
+        surface.fill((0, 0, 0))
 
-        title = self.font_title.render("Game Scene (placeholder)", True, (255, 255, 255))
-        hint = self.font_hint.render("ESC: Back to Title", True, (200, 200, 200))
+        for y, row in enumerate(self.MAZE):
+            for x, ch in enumerate(row):
+                rect = pygame.Rect(
+                    self.offset_x + x * self.TILE_SIZE,
+                    self.offset_y + y * self.TILE_SIZE,
+                    self.TILE_SIZE,
+                    self.TILE_SIZE
+                )
 
-        surface.blit(title, (20, 30))
-        surface.blit(hint, (20, 70))
+                if ch == "#":
+                    pygame.draw.rect(surface, (40, 40, 40), rect)
+                else:
+                    pygame.draw.rect(surface, (12, 12, 12), rect)
+
+        player_rect = pygame.Rect(
+            self.offset_x + self.px * self.TILE_SIZE,
+            self.offset_y + self.py * self.TILE_SIZE,
+            self.TILE_SIZE,
+            self.TILE_SIZE
+        )
+        pygame.draw.rect(surface, (255, 240, 120), player_rect)
+
+        hint = self.font_hint.render("Arrows: Move   ESC: Back", True, (200, 200, 200))
+        surface.blit(hint, (20, 200))
