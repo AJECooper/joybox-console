@@ -7,7 +7,7 @@ from joybox.launcher.scenes.launcher_scene import LauncherScene
 def main():
     pygame.init()
 
-    app = GameApp(start_scene=None, window_size=(640, 480), caption="JoyBox - Day 1")
+    app = GameApp(start_scene=None, window_size=(640, 480), caption="JoyBox - Day 1", home_scene_factory=lambda app: LauncherScene(app))
 
     app.set_scene(LauncherScene(app))
 

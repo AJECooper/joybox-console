@@ -10,6 +10,7 @@ class Action(Enum):
     BACK = auto()
     PAUSE = auto()
     RESTART = auto()
+    HOME = auto()
 
 DEFAULT_KEYMAP = {
     pygame.K_UP: Action.UP,
@@ -20,6 +21,7 @@ DEFAULT_KEYMAP = {
     pygame.K_ESCAPE: Action.BACK,
     pygame.K_p: Action.PAUSE,
     pygame.K_r: Action.RESTART,
+    pygame.K_F1: Action.HOME,
 }
 
 def get_action_from_event(event, keymap=DEFAULT_KEYMAP):
