@@ -5,7 +5,7 @@ import pygame
 from joybox.engine.scene import Scene
 from joybox.engine.input.actions import get_action_from_event, Action
 from joybox.launcher.discovery import discover_games
-
+from joybox.launcher.entrypoint import load_entrypoint
 
 class LauncherScene(Scene):
     def __init__(self, app):
@@ -17,6 +17,8 @@ class LauncherScene(Scene):
         self.font_item = pygame.font.SysFont(None, 28)
         self.font_meta = pygame.font.SysFont(None, 22)
 
+        self.error_message = None
+
     def handle_event(self, event):
         action = get_action_from_event(event)
 
@@ -27,13 +29,26 @@ class LauncherScene(Scene):
             self.selected_index = (self.selected_index + 1) % len(self.games)
 
         elif action == Action.CONFIRM:
+            self.error_message = None
+
             if not self.games:
-                print("[Launcher] No games discovered.")
+                self.error_message = "No games discovered."
                 return None
 
             selected = self.games[self.selected_index].manifest
-            print(f"[Launcher] Selected: {selected.id} ({selected.title}) v{selected.version}")
-            print(f"[Launcher] Entrypoint: {selected.entrypoint}")
+
+            try:
+                create_game_fn = load_entrypoint(selected.entrypoint)
+                next_scene = create_game_fn(self.app)
+
+                if next_scene is None:
+                    raise ValueError(f"Entrypoint returned None for game '{selected.id}'")
+
+                return next_scene
+
+            except Exception as ex:
+                self.error_message = f"Failed to launch '{selected.title}': {ex}"
+                return None
 
         elif action == Action.BACK:
             self.app.quit()
@@ -51,6 +66,10 @@ class LauncherScene(Scene):
 
         subtitle_surf = self.font_meta.render("Select a game", True, (180, 180, 180))
         surface.blit(subtitle_surf, (26, 62))
+
+        if self.error_message:
+            err = self.font_meta.render(self.error_message, True, (255, 120, 120))
+            surface.blit(err, (24, surface.get_height() - 55))
 
         if not self.games:
             empty_surf = self.font_item.render("No games found.", True, (220, 220, 220))
