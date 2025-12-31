@@ -1,11 +1,13 @@
 import pygame
 
 from joybox.engine.input.actions import get_action_from_event, Action
+from joybox.engine.input.input_state import InputState
 
 class GameApp:
     def __init__(self, start_scene, window_size=(640, 480), caption="JoyBox", home_scene_factory=None):
         self.scene = start_scene
         self.running = True
+        self.input_state = InputState()
         self.home_scene_factory = home_scene_factory
 
         self.screen = pygame.display.set_mode(window_size)
@@ -17,6 +19,7 @@ class GameApp:
         self.running = False
 
     def set_scene(self, scene):
+        self.input_state.clear()
         self.scene = scene
 
     def go_home(self):
@@ -33,9 +36,31 @@ class GameApp:
                     break
 
                 action = get_action_from_event(event)
+
                 if action == Action.HOME:
                     self.go_home()
                     continue
+
+                if event.type in (pygame.KEYDOWN, pygame.KEYUP):
+                    if action is None and event.type == pygame.KEYUP:
+                        fake_event = pygame.event.Event(pygame.KEYDOWN, key=event.key)
+                        action = get_action_from_event(fake_event)
+
+                    if action is not None:
+                        if event.type == pygame.KEYDOWN:
+                            if action == Action.LEFT:
+                                self.input_state.release(Action.RIGHT)
+                            elif action == Action.RIGHT:
+                                self.input_state.release(Action.LEFT)
+                            elif action == Action.UP:
+                                self.input_state.release(Action.DOWN)
+                            elif action == Action.DOWN:
+                                self.input_state.release(Action.UP)
+
+                            self.input_state.press(action)
+
+                        elif event.type == pygame.KEYUP:
+                            self.input_state.release(action)
                 
                 next_scene = self.scene.handle_event(event)
                 if next_scene is not None:
