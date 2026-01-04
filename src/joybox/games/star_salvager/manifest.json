@@ -2,6 +2,7 @@
     "id": "star_salvager",
     "title": "Star Salvager",
     "version": "0.1.0",
+    "author": "JoyBox Community",
     "description": "Arcade top-down space salvage runner. Collect pods, avoid hazards, survive the drift.",
     "entrypoint": "joybox.games.star_salvager.game:create_game",
     "supported_profiles": ["pi_lite", "pi_standard", "pi_performance"],

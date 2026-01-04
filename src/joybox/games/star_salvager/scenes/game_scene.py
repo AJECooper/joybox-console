@@ -88,7 +88,7 @@ class GameScene(Scene):
 
     def handle_event(self, event):
         action = get_action_from_event(event)
-
+        
         if action == Action.BACK and event.type == pygame.KEYDOWN:
             return TitleScene(self.app)
 

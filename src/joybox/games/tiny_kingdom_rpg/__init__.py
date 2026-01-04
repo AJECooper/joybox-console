@@ -1,0 +1,9 @@
+{
+    "id": "tiny_kingdom_rpg",
+    "title": "Tiny Kingdom RPG",
+    "version": "0.0.1",
+    "author": "JoyBox Community",
+    "description": "A small RPG game set in a tiny kingdom.",
+    "entrypoint": "joybox.games.tiny_kingdom_rpg.game:create_game",
+    "supported_profiles": ["pi_standard", "pi_performance"]
+}
